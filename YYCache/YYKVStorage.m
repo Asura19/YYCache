@@ -641,6 +641,7 @@ static void _finalizeStatement(const void *key, const void *value, void *context
     int result = sqlite3_step(stmt);
     if (result != SQLITE_ROW) {
         if (_errorLogsEnabled) NSLog(@"%s line:%d sqlite query error (%d): %s", __FUNCTION__, __LINE__, result, sqlite3_errmsg(_db));
+        sqlite3_reset(stmt);
         return -1;
     }
     int count = sqlite3_column_int(stmt, 0);
